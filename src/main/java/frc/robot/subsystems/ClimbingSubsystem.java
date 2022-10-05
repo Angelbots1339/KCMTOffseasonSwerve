@@ -4,19 +4,22 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ClimberConstants;
+import frc.robot.Constants.ClimbingConstants;
 
-public class ClimberSubsystem extends SubsystemBase {
+public class ClimbingSubsystem extends SubsystemBase {
 
-  private WPI_TalonFX climbMotor = new WPI_TalonFX(ClimberConstants.climberMotorID);
+  private WPI_TalonFX climbMotor = new WPI_TalonFX(ClimbingConstants.climberMotorID);
 
   /** Creates a new ClimberSubsystem. */
-  public ClimberSubsystem() {
+  public ClimbingSubsystem() {
+    
 
   }
 
@@ -26,19 +29,19 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public double getClimberPosition() {
-    return climbMotor.getSelectedSensorPosition();
+    return climbMotor.getSelectedSensorPosition() * ClimbingConstants.lengthPerClick;
   }
 
-  /**
-   * 
-   * Sets climbing motor to specified speed
-   * 
-   * @param speed between -1 and 1
-   */
-  public void setClimberSpeed(double speed){
-
+  public void setExtentionSpeed(double speed) {
+   
     climbMotor.set(ControlMode.PercentOutput, speed);
 
+  }
+
+  public void resetEncoder() {
+
+    climbMotor.setSelectedSensorPosition(0);
+    
   }
 
 }

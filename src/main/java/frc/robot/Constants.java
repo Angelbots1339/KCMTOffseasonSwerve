@@ -147,11 +147,26 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
 
-      public static final class ClimberConstants {
+      public static final class ClimbingConstants {
 
         public static final int climberMotorID = 17;
-        public static final double climbMotorGearRatio = 0.2;
-        public static final double motorClicksPerRot = 0.2;
+        public static final double climbMotorGearRatio = 24; // 24:1
+        public static final int clicksPerRot = 2048;
+
+        public static final double extensionSpeed = .5;
+        public static final double extensionSpeedTest = .25;
+        
+        public static final double threshold = .1;
+
+        public static final double lowerExtensionBound = 0;  // Meters
+        public static final double upperExtensionBound = .5; // Meters
+
+
+
+        private static final double spoolCircum = Units.inchesToMeters(2) * Math.PI;
+        public static final double lengthPerClick = (1 / clicksPerRot) * spoolCircum
+                / climbMotorGearRatio;
+
 
       }
 
