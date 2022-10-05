@@ -18,22 +18,6 @@ public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
 
-    climbMotor.configFactoryDefault();
-    climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, ClimberConstants.kTimeoutMs);
-
-    climbMotor.configNominalOutputForward(0, ClimberConstants.kTimeoutMs);
-		climbMotor.configNominalOutputReverse(0, ClimberConstants.kTimeoutMs);
-		climbMotor.configPeakOutputForward(1, ClimberConstants.kTimeoutMs);
-		climbMotor.configPeakOutputReverse(-1, ClimberConstants.kTimeoutMs);
-    
-    climbMotor.configAllowableClosedloopError(0, ClimberConstants.kPIDLoopIdx, ClimberConstants.kTimeoutMs);
-
-		/* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
-		climbMotor.config_kF(ClimberConstants.kPIDLoopIdx, ClimberConstants.kF, ClimberConstants.kTimeoutMs);
-		climbMotor.config_kP(ClimberConstants.kPIDLoopIdx, ClimberConstants.kP, ClimberConstants.kTimeoutMs);
-		climbMotor.config_kI(ClimberConstants.kPIDLoopIdx, ClimberConstants.kI, ClimberConstants.kTimeoutMs);
-		climbMotor.config_kD(ClimberConstants.kPIDLoopIdx, ClimberConstants.kD, ClimberConstants.kTimeoutMs);
-
   }
 
   @Override
@@ -45,9 +29,15 @@ public class ClimberSubsystem extends SubsystemBase {
     return climbMotor.getSelectedSensorPosition();
   }
 
-  public void setClimberPosition(double targetPos){
+  /**
+   * 
+   * Sets climbing motor to specified speed
+   * 
+   * @param speed between -1 and 1
+   */
+  public void setClimberSpeed(double speed){
 
-    climbMotor.set(ControlMode.Position, targetPos);
+    climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
 
