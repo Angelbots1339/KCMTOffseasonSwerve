@@ -95,4 +95,10 @@ public class RobotContainer {
   public void testModeCenterGyro() {
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
   }
+
+  public void resetAnglesToAbsolute(){
+
+    
+    
+  }
 }
