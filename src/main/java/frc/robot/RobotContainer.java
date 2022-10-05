@@ -91,4 +91,8 @@ public class RobotContainer {
     climbingSubsystem.setExtentionSpeed((driver.getLeftTriggerAxis() * ClimbingConstants.extensionSpeedTest)
         - (driver.getRightTriggerAxis() * ClimbingConstants.extensionSpeedTest));
   }
+
+  public void testModeCenterGyro() {
+    zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
+  }
 }
