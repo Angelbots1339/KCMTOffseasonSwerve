@@ -58,7 +58,8 @@ public class RobotContainer {
     climbingSubsystem.setDefaultCommand(new RunClimber(climbingSubsystem, leftTrigger, rightTrigger));
 
     autoChooser.setDefaultOption("None", new WaitCommand(0));
-    autoChooser.addOption("Drive Forward", new exampleAuto(s_Swerve));
+    autoChooser.addOption("Drive Forward", new DriveForward2M(s_Swerve)); // Drives forward 2M
+    autoChooser.addOption("Wait Drive Forward", new WaitDriveForward2M(s_Swerve)); // Waits for 5 seconds before driving forward 2M
 
     // Configure the button bindings
     configureButtonBindings();
