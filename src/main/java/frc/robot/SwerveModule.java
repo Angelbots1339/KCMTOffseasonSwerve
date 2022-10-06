@@ -60,7 +60,11 @@ public class SwerveModule {
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio)); 
         lastAngle = angle;
     }
-
+  /**
+   * 
+   * Resets the integrated sensor of the angle motor to zero using the cancoder's position.
+   * 
+   */
     public void resetToAbsolute(){
         double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset, Constants.Swerve.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
