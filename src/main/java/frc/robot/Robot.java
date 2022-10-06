@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.resetAnglesToAbsolute(); // FIXME Remove if modules move out of alignment
+    m_robotContainer.resetGyro(); // FIXME Remove if gyro shouldn't be reset at start of auto
   }
 
   /** This function is called periodically during autonomous. */

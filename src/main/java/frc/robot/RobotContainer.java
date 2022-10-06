@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -41,6 +42,8 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
 
+  private SendableChooser<Command> autoChooser = new SendableChooser<>();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -52,6 +55,9 @@ public class RobotContainer {
     DoubleSupplier leftTrigger = () -> driver.getLeftTriggerAxis();
     DoubleSupplier rightTrigger = () -> driver.getRightTriggerAxis();
     climbingSubsystem.setDefaultCommand(new RunClimber(climbingSubsystem, leftTrigger, rightTrigger));
+
+    autoChooser.setDefaultOption("None", new InstantCommand(null));
+    autoChooser.addOption("Drive Forward", new exampleAuto(s_Swerve));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -78,9 +84,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // TODO Characterize robot and add back auto
-    // return new exampleAuto(s_Swerve);
-    return null;
+    // TODO Characterize robot
+    return autoChooser.getSelected(); 
   }
 
   public void resetClimbEncoder() {
@@ -101,5 +106,9 @@ public class RobotContainer {
     for(int i = 0; i <= 3; i++){
       s_Swerve.mSwerveMods[i].resetToAbsolute();
     } 
+  }
+
+  public void resetGyro(){
+    s_Swerve.zeroGyro();
   }
 }

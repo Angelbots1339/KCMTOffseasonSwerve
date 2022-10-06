@@ -4,10 +4,8 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,13 +33,11 @@ public class ClimbingSubsystem extends SubsystemBase {
   public void setExtentionSpeed(double speed) {
    
     climbMotor.set(ControlMode.PercentOutput, speed);
-
   }
 
   public void resetEncoder() {
 
     climbMotor.setSelectedSensorPosition(0);
-    
   }
 
 }
