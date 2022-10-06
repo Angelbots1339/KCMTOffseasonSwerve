@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_robotContainer.resetClimbEncoder();
+    m_robotContainer.resetAnglesToAbsolute(); // FIXME Remove if modules move out of alignment
   }
 
   /**
@@ -66,6 +67,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    m_robotContainer.resetAnglesToAbsolute(); // FIXME Remove if modules move out of alignment
   }
 
   /** This function is called periodically during autonomous. */
@@ -81,6 +84,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_robotContainer.resetAnglesToAbsolute();
   }
 
   /** This function is called periodically during operator control. */

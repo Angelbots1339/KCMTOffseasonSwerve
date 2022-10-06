@@ -97,8 +97,8 @@ public class RobotContainer {
   }
 
   public void resetAnglesToAbsolute(){
-
-    
-    
+    for(int i = 0; i <= 3; i++){
+      s_Swerve.mSwerveMods[i].resetToAbsolute();
+    } 
   }
 }
