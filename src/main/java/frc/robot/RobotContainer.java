@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ClimbingConstants;
 import frc.robot.autos.*;
@@ -56,7 +57,7 @@ public class RobotContainer {
     DoubleSupplier rightTrigger = () -> driver.getRightTriggerAxis();
     climbingSubsystem.setDefaultCommand(new RunClimber(climbingSubsystem, leftTrigger, rightTrigger));
 
-    autoChooser.setDefaultOption("None", new InstantCommand(null));
+    autoChooser.setDefaultOption("None", new WaitCommand(0));
     autoChooser.addOption("Drive Forward", new exampleAuto(s_Swerve));
 
     // Configure the button bindings
