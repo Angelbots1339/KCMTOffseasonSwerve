@@ -109,6 +109,9 @@ public class Swerve extends SubsystemBase {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Slected Sensor", mod.getSlectedSensor()); 
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Desired Slected Sensor", mod.getDesiredSlectedSensor()); 
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Get Desired Angle", mod.getdesiredAngle()); 
 
 
         }

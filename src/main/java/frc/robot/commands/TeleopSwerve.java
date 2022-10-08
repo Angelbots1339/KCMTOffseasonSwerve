@@ -34,8 +34,8 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        double yAxis = -controller.getLeftX();
-        double xAxis = -controller.getLeftY();
+        double yAxis = -controller.getLeftY();
+        double xAxis = -controller.getLeftX();
         double rAxis = -controller.getRightX();
         
         /* Deadbands */

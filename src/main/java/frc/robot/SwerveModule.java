@@ -56,7 +56,10 @@ public class SwerveModule {
             mDriveMotor.set(ControlMode.Velocity, velocity, DemandType.ArbitraryFeedForward, feedforward.calculate(desiredState.speedMetersPerSecond));
         }
 
-        double angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle.getDegrees(); //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        double angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle.getDegrees(); 
+        //Prevent rotating module if speed is less then 1%. Prevents Jittering;
+
+      
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio)); 
         lastAngle = angle;
     }
@@ -66,7 +69,8 @@ public class SwerveModule {
    * 
    */
     public void resetToAbsolute(){
-        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset, Constants.Swerve.angleGearRatio);
+        
+        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.Swerve.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
 
@@ -103,8 +107,14 @@ public class SwerveModule {
         return new SwerveModuleState(velocity, angle);
     }
 
-    public void logPID(){
-        SmartDashboard.putNumber("", mAngleMotor.getClosedLoopError());
+    public double getSlectedSensor(){
+        return mAngleMotor.getSelectedSensorPosition();
+    }
+    public double getDesiredSlectedSensor(){
+        return Conversions.degreesToFalcon(lastAngle, Constants.Swerve.angleGearRatio);
+    }
+    public double getdesiredAngle(){
+        return lastAngle;
     }
 
     
