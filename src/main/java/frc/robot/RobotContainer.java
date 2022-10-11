@@ -51,7 +51,7 @@ public class RobotContainer {
   public RobotContainer() {
     boolean fieldRelative = true;
     boolean openLoop = true;
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, fieldRelative, openLoop));
+    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, () -> driver.getLeftX(), () -> driver.getLeftY(), () -> driver.getRightX(), fieldRelative, openLoop));
 
     DoubleSupplier leftTrigger = () -> driver.getLeftTriggerAxis();
     DoubleSupplier rightTrigger = () -> driver.getRightTriggerAxis();

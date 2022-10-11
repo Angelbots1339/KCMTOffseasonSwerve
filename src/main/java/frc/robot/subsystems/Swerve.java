@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import frc.robot.SwerveModule;
@@ -22,6 +19,7 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public PigeonIMU gyro;
+    private SwerveModuleState[] targetStates;
 
     public Swerve() {
         gyro = new PigeonIMU(Constants.Swerve.pigeonID);
@@ -58,6 +56,8 @@ public class Swerve extends SubsystemBase {
             
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
+
+        targetStates = swerveModuleStates;
     }    
 
     /* Used by SwerveControllerCommand in Auto */
@@ -107,8 +107,10 @@ public class Swerve extends SubsystemBase {
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
+            
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Target Angle", targetStates[mod.moduleNumber].angle.getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Target Velocity", targetStates[mod.moduleNumber].speedMetersPerSecond);
 
 
         }
