@@ -35,20 +35,12 @@ public class RunClimber extends CommandBase {
   @Override
   public void execute() {
 
-    double speed = (Math.abs(leftTrigger.getAsDouble()) > ClimbingConstants.threshold ? leftTrigger.getAsDouble()
-        : 0 * ClimbingConstants.extensionSpeed)
-        - (Math.abs(rightTrigger.getAsDouble()) > ClimbingConstants.threshold ? rightTrigger.getAsDouble()
-            : 0 * ClimbingConstants.extensionSpeed);
+    double speed = leftTrigger.getAsDouble() - rightTrigger.getAsDouble();
+       
 
-    if ((climbingSubsystem.getClimberPosition() >= ClimbingConstants.upperExtensionBound && speed > 0)
-        || (climbingSubsystem.getClimberPosition() > ClimbingConstants.lowerExtensionBound && speed < 0)) {
 
-      climbingSubsystem.setExtentionSpeed(speed);
-
-    } else {
-
-      climbingSubsystem.setExtentionSpeed(0);
-    }
+    climbingSubsystem.setExtentionSpeed(speed * 0.5);
+ 
 
   }
 

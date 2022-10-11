@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -59,7 +60,9 @@ public class RobotContainer {
 
     autoChooser.setDefaultOption("None", new WaitCommand(0));
     autoChooser.addOption("Drive Forward", new DriveForward2M(s_Swerve)); // Drives forward 2M
-    autoChooser.addOption("Wait Drive Forward", new WaitDriveForward2M(s_Swerve)); // Waits for 5 seconds before driving forward 2M
+    autoChooser.addOption("Wait Drive Forward", new WaitDriveForward2M(s_Swerve));
+     // Waits for 5 seconds before driving forward 2M
+     Shuffleboard.getTab("Auto").add(autoChooser);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -95,8 +98,9 @@ public class RobotContainer {
   }
 
   public void testModeRunArms() {
-    climbingSubsystem.setExtentionSpeed((driver.getLeftTriggerAxis() * ClimbingConstants.extensionSpeedTest)
-        - (driver.getRightTriggerAxis() * ClimbingConstants.extensionSpeedTest));
+    climbingSubsystem.setExtentionVolts((driver.getLeftTriggerAxis() * 6)
+        - (driver.getRightTriggerAxis() * 6));
+      
   }
 
   public void testModeCenterGyro() {
