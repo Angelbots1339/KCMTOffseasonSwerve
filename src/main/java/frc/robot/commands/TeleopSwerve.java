@@ -41,8 +41,8 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        double yAxis = -leftX.getAsDouble();
-        double xAxis = -leftY.getAsDouble();
+        double xAxis = -leftX.getAsDouble();
+        double yAxis = -leftY.getAsDouble();
         double rAxis = -rightX.getAsDouble();
 
         
