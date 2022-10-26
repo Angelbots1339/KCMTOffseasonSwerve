@@ -31,6 +31,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.resetClimbEncoder();
+    m_robotContainer.resetAnglesToAbsolute(); // FIXME Remove if modules move out of alignment
   }
 
   /**
@@ -65,6 +67,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    m_robotContainer.resetAnglesToAbsolute(); // FIXME Remove if modules move out of alignment
+    m_robotContainer.resetGyro(); // FIXME Remove if gyro shouldn't be reset at start of auto
   }
 
   /** This function is called periodically during autonomous. */
@@ -80,6 +85,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_robotContainer.resetAnglesToAbsolute();
   }
 
   /** This function is called periodically during operator control. */
@@ -94,5 +101,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+
+  m_robotContainer.testModeRunArms();
+  m_robotContainer.testModeCenterGyro();
+
+  }
 }

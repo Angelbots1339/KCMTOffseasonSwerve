@@ -10,11 +10,8 @@ import frc.lib.util.SwerveModuleConstants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.CANCoder;
-import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 public class SwerveModule {
     public int moduleNumber;
@@ -59,13 +56,21 @@ public class SwerveModule {
             mDriveMotor.set(ControlMode.Velocity, velocity, DemandType.ArbitraryFeedForward, feedforward.calculate(desiredState.speedMetersPerSecond));
         }
 
-        double angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle.getDegrees(); //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        double angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle.getDegrees(); 
+        //Prevent rotating module if speed is less then 1%. Prevents Jittering;
+
+      
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio)); 
         lastAngle = angle;
     }
-
-    private void resetToAbsolute(){
-        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset, Constants.Swerve.angleGearRatio);
+  /**
+   * 
+   * Resets the integrated sensor of the angle motor to zero using the cancoder's position.
+   * 
+   */
+    public void resetToAbsolute(){
+        
+        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.Swerve.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
 
@@ -102,8 +107,14 @@ public class SwerveModule {
         return new SwerveModuleState(velocity, angle);
     }
 
-    public void logPID(){
-        SmartDashboard.putNumber("", mAngleMotor.getClosedLoopError());
+    public double getSlectedSensor(){
+        return mAngleMotor.getSelectedSensorPosition();
+    }
+    public double getDesiredSlectedSensor(){
+        return Conversions.degreesToFalcon(lastAngle, Constants.Swerve.angleGearRatio);
+    }
+    public double getdesiredAngle(){
+        return lastAngle;
     }
 
     

@@ -82,7 +82,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 9;
-            public static final double angleOffset = 173.935546875 + 180;
+            public static final double angleOffset = -354.02343750000006;//-264; //173.935546875 + 180;
             public static final boolean driveMotorInvert = false;
             public static final boolean angleMotorInvert = true;
             public static final boolean canCoderInvert = false;
@@ -95,7 +95,8 @@ public final class Constants {
             public static final int driveMotorID = 2;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 10;
-            public static final double angleOffset = 181.7578125;
+            
+            public static final double angleOffset = -180.703125;//-92;//181.7578125;
             public static final boolean driveMotorInvert = true;
             public static final boolean angleMotorInvert = true;
             public static final boolean canCoderInvert = false;
@@ -108,10 +109,11 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 7;
             public static final int canCoderID = 11;
-            public static final double angleOffset = 171.3;
+            
+            public static final double angleOffset = -187.74;//262;//171.3;
             public static final boolean driveMotorInvert = false;
             public static final boolean angleMotorInvert = true;
-            public static final boolean canCoderInvert = true;
+            public static final boolean canCoderInvert = false;
             public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, driveMotorInvert, angleMotorInvert, canCoderInvert);
         }
@@ -121,10 +123,11 @@ public final class Constants {
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 12;
-            public static final double angleOffset = 246.62109374999997 + 45;
+            
+            public static final double angleOffset = -65.12;//25;//246.62109374999997 + 45;
             public static final boolean driveMotorInvert = false;
             public static final boolean angleMotorInvert = true;   
-            public static final boolean canCoderInvert = true;
+            public static final boolean canCoderInvert = false;
             public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, driveMotorInvert, angleMotorInvert, canCoderInvert);
         }
@@ -145,6 +148,29 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+      }
+
+      public static final class ClimbingConstants {
+
+        public static final int climberMotorID = 17;
+        public static final double climbMotorGearRatio = 24; // 24:1
+        public static final int clicksPerRot = 2048;
+
+        public static final double extensionSpeed = .5;
+        public static final double extensionSpeedTest = .25;
+        
+        public static final double threshold = .1;
+
+        public static final double lowerExtensionBound = 0;  // Meters
+        public static final double upperExtensionBound = .5; // Meters
+
+
+
+        private static final double spoolCircum = Units.inchesToMeters(2) * Math.PI;
+        public static final double lengthPerClick = (1 / clicksPerRot) * spoolCircum
+                / climbMotorGearRatio;
+
+
       }
 
 }
